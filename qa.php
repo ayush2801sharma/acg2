@@ -23,8 +23,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
   <title>PHP login system!</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="jqajax.js"></script>
 </head>
 
 <body>
@@ -70,34 +75,34 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
       </div>
     </form>
     <h5>Or</h5>
-    <form>
+    <form class="for" id="myform">
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="crfid">CRF ID</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <input type="text" class="form-control" id="crfid">
         </div>
         <div class="form-group col-md-4">
           <label for="fsid">FS ID</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="fsid">
         </div>
         <div class="form-group col-md-4">
           <label for="jiraid">Jira ID</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="jiraid">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="customernameqa">Customer Name</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <label for="customername">Customer Name</label>
+          <input type="text" class="form-control" id="customername">
         </div>
         <div class="form-group col-md-4">
-          <label for="scopeoftheproject">Scope of the Project</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="scopeofproject">Scope of the Project</label>
+          <input type="text" class="form-control" id="scopeofproject">
         </div>
         <div class="form-group col-md-4">
           <label for="testscenariostatus">Test Scenario Status</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="testscenariostatus">
         </div>
       </div>
 
@@ -105,11 +110,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="system">System</label>
-          <input type="text" class="form-control" id="inputCity">
+          <input type="text" class="form-control" id="system">
         </div>
         <div class="form-group col-md-4">
           <label for="regulatory">Regulatory</label>
-          <select id="inputState" class="form-control">
+          <select id="regulatory" class="form-control">
             <option selected>Choose...</option>
             <option>1</option>
             <option>2</option>
@@ -119,7 +124,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
         <div class="form-group col-md-4">
           <label for="numberportal">Number Portal</label>
-          <select id="inputState" class="form-control">
+          <select id="numberportal" class="form-control">
             <option selected>Choose...</option>
             <option>1</option>
             <option>2</option>
@@ -131,46 +136,50 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="serversoftware">Server Software</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="serversoftware">
           </div>
           <div class="form-group col-md-4">
             <label for="nonnavstarsoftware">Non Navstar Software</label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="nonnavstarsoftware">
           </div>
           <div class="form-group col-md-4">
             <label for="visionversion">Vision Version </label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="visionversion">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="dbscriptversion">DB Script Version</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="dbscriptversion">
           </div>
           <div class="form-group col-md-4">
-            <label for="dtechdii">D.Tech DII </label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <label for="dtechii">D.Tech DII </label>
+            <input type="text" class="form-control" id="dtechii">
           </div>
           <div class="form-group col-md-4">
             <label for="navstarsoftware">Navstar Software </label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="navstarsoftware">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="firmware">Firmware </label>
+            <input type="text" class="form-control" id="firmware">
           </div>
         </div>
 
 
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="plcandhmiversion">PLC and HMI Version</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="plcandhmiversion">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="printerinunitstation">Printer in Unit Station</label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="printerinunitstation">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="camerainunitstation">Camera in Unit Station</label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="camerainunitstation">
           </div>
         </div>
 
@@ -180,46 +189,68 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="cpuconfigurationinunitstation">CPU configuration in unit station</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="cpuconfigurationinunitstation">
           </div>
           <div class="form-group col-md-4">
+            <label for="camerainnavstarstation">Camera in Navstar Station</label>
+            <input type="text" class="form-control" id="camerainnavstarstation">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="cpuconfigurationinnavstarstation">CPU configuration in Navstar Station</label>
+            <input type="text" class="form-control" id="cpuconfigurationinnavstarstation">
+          </div>
+
+          <div class="form-group col-md-4">
             <label for="printerinintermediatestation">Printer in intermediate station </label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="printerinintermediatestation">
           </div>
           <div class="form-group col-md-4">
             <label for="camerainintermediatestation">Camera in intermediate station </label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="camerainintermediatestation">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="cpuconfigurationinintermediatestation">Cpu Configuration in intermediate station </label>
+            <input type="text" class="form-control" id="cpuconfigurationinintermediatestation">
           </div>
         </div>
 
         <div class="form-row">
+         
+          
+          
           <div class="form-group col-md-4">
-            <label for="cpuconfigurationinintermediatestation">CPU configuration in intermediate station</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <label for="printerinlastintermediatestation">Printer in last intermediate station </label>
+            <input type="text" class="form-control" id="printerinlastintermediatestation">
           </div>
           <div class="form-group col-md-4">
-            <label for="printerinlastntermediatestation">Printer in last intermediate station</label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <label for="camerainlastintermediatestation">Camera in last intermediate station </label>
+            <input type="text" class="form-control" id="camerainlastintermediatestation">
           </div>
-          <div class="form-group col-md-4">
-            <label for="camerainlastintermediatestation">Camera in last intermediate station</label>
-            <input type="text" class="form-control" id="inputPassword4">
+          <div class="form-group col-md-6">
+            <label for="cpuconfigurationinlastintermediatestation">Cpu Configuration in last intermediate station </label>
+            <input type="text" class="form-control" id="cpuconfigurationinlastintermediatestation">
           </div>
         </div>
 
+      
+
 
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="printerinpalletstation">Printer in pallet station</label>
-            <input type="text" class="form-control" id="inputEmail4">
+            <input type="text" class="form-control" id="printerinpalletstation">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="cpuinpalletstation">CPU in pallet station</label>
-            <input type="text" class="form-control" id="inputPassword4">
+            <input type="text" class="form-control" id="cpuinpalletstation">
           </div>
-          <div class="form-group col-md-4">
-          <label for="numberportal">Project Status</label>
-          <select id="inputState" class="form-control">
+          <div class="form-group col-md-6">
+            <label for="scanner">Scanner</label>
+            <input type="text" class="form-control" id="scanner">
+          </div>
+          <div class="form-group col-md-6">
+          <label for="projectstatus">Project Status</label>
+          <select id="projectstatus" class="projectstatus">
             <option selected>Choose...</option>
             <option>Released</option>
             <option>Testing planned</option>
@@ -234,35 +265,29 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="softwarepath">Software Path</label>
-            <input type="url" class="form-control" id="inputEmail4">
+            <input type="url" class="form-control" id="softwarepath">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label for="testdatapath">Test Data Path</label>
-            <input type="url" class="form-control" id="inputPassword4">
+            <input type="url" class="form-control" id="testdatapath">
           </div>
           <div class="form-group">
             <label for="attachmentsofrn">Attachments of RN, TSR, IA & IOQ</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" class="form-control-file" id="attachmentsofrn">
           </div>
         </div>
 
 
-        <div class="form-group col-md-2">
-          <label for="remarksqa">Remarks</label>
-          <input type="text" class="form-control" id="inputZip">
+        <div class="form-group col-md-10">
+          <label for="remark">Remarks</label>
+          <input type="text" class="form-control" id="remark">
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+    
+      <button type="submit" class="btn btn-primary" id="btnadd">Submit</button>
+      <div id="msg"></div>
     </form>
   </div>
 
@@ -270,7 +295,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <div class="container my-4">
 
 
-    <table class="table" id="myTable">
+    <table class="table" id="tableid">
       <thead>
         <tr>
           <th scope="col">Sr.No</th>
@@ -293,6 +318,34 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
+  <script src= "https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src= "https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+  <script src= "https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+  <script src= "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src= "https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+  <script src = "jqajax.js"></script>
+
+
+  <!-- table functions-->
+  <script>
+    $(document).ready(function () {
+      $('#tableid').DataTable({
+        dom: 'Bfrtip',
+        buttons: [ {
+            extend: 'excelHtml5',
+            customize: function ( xlsx ){
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+ 
+                // jQuery selector to add a border
+                $('row c[r*="10"]', sheet).attr( 's', '25' );
+            }
+        } ]
+      });
+
+    });
+  </script>
+  
 </body>
 
 </html>
