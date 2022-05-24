@@ -1,7 +1,7 @@
 <?php
 define('DB_SERVER','127.0.0.1');
 define('DB_USERNAME','root');
-define('DB_PASSWORD','');
+define('DB_PASSWORD','tnt123');
 define('DB_NAME','qaprojects');
 
 
@@ -11,7 +11,7 @@ if($conn == false){
     die('Error : Cannot connect');
 
 }
-$sql= "SELECT crfid,fsid,jiraid,customername,system,nonnavstarsoftware, serversoftware from qaprojects";
+$sql= "SELECT id,crfid,fsid, customername, firmware, nonnavstarsoftware, serversoftware, projectstatus from qaprojects";
 $result =$conn->query($sql);
 if($result->num_rows >0){
     $data= array();

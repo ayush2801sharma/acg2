@@ -27,9 +27,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-  <title>PHP login system!</title>
+  <title>A.C.G Inspection</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="jqajax.js"></script>
+  <script src = "jqajax.js"></script>
+
 </head>
 
 <body>
@@ -63,6 +64,22 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
       </ul>
     </div>
   </nav>
+<!--chart-->
+  <?php
+      define('DB_SERVER','127.0.0.1');
+      define('DB_USERNAME','root');
+      define('DB_PASSWORD','tnt123');
+      define('DB_NAME','qaprojects');
+      
+      $conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_NAME);
+      
+      
+      $step = $dbo->prepare($query);
+
+
+
+
+  ?>
 
   <div class="container mt-4">
     <h3>Add Project:</h3>
@@ -77,6 +94,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <h5>Or</h5>
     <form class="for" id="myform">
       <div class="form-row">
+      <div class="form-group col-md-10">
+          <label for="id"></label>
+          <input type="text" class="form-control" id="id" style="display:none;" >
+        </div>
         <div class="form-group col-md-4">
           <label for="crfid">CRF ID</label>
           <input type="text" class="form-control" id="crfid">
@@ -309,7 +330,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           <th scope="col">Info</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
 
 
 
@@ -324,7 +347,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <script src= "https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
   <script src= "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
   <script src= "https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-  <script src = "jqajax.js"></script>
+ 
 
 
   <!-- table functions-->
