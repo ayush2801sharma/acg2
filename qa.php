@@ -27,13 +27,47 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ 
   <title>A.C.G Inspection</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+            function drawChart() {
+                // call ajax function to get sports data
+                var jsonData = $.ajax({
+                    url: "getData.php",
+                    dataType: "json",
+                    async: false
+                }).responseText;
+                //The DataTable object is used to hold the data passed into a visualization.
+                var data = new google.visualization.DataTable(jsonData);
+
+                // To render the pie chart.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_container'));
+                chart.draw(data, {width: 400, height: 240});
+            }
+            // load the visualization api
+            google.charts.load('current', {'packages':['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+        </script>
   <script src = "jqajax.js"></script>
+
 
 </head>
 
 <body>
+<?php
+
+
+
+
+
+
+  ?>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">A.C.G Inspection Pvt. Ltd.</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,33 +99,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </div>
   </nav>
 <!--chart-->
-  <?php
-      define('DB_SERVER','127.0.0.1');
-      define('DB_USERNAME','root');
-      define('DB_PASSWORD','tnt123');
-      define('DB_NAME','qaprojects');
-      
-      $conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_NAME);
-      
-      
-      $step = $dbo->prepare($query);
+<h2>Project Status </h2>
+        <div id="chart_container"></div>
 
-
-
-
-  ?>
+ 
 
   <div class="container mt-4">
     <h3>Add Project:</h3>
     <hr>
-    <h5>Fill either form or add excel file </h5>
-    <form>
-      <div class="form-group">
-        <label for="fileqa1">Excel file</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-      </div>
-    </form>
-    <h5>Or</h5>
+    
+ 
     <form class="for" id="myform">
       <div class="form-row">
       <div class="form-group col-md-10">
