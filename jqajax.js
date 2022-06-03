@@ -1,19 +1,22 @@
 $(document).ready(function(){
 //retrive
 function showdata(){
-    output ="";
+    output =" ";
     $.ajax({
         url:"retrieve.php",
         method: "GET",
-        dataType:'json',          // json string to object
+        dataType:"json",          // json string to object
         success: function(data){
-            //console.log(data[0].id);
+           // console.log(data);
+
+
             if(data){
                 x= data;
             }else{
                 x="";
             }
             for(i=0;i<x.length;i++) {
+                console.log(x[i]);
                 output += "<tr><td>"+ x[i].id + "</td><td>" +x[i].crfid + "</td><td>" +x[i].fsid + "</td><td>" +x[i].customername + "</td><td>" +x[i].firmware + "</td><td>" +x[i].nonnavstarsoftware + "</td><td>" +x[i].serversoftware + "</td><td>" +x[i].projectstatus +"</td><td> <button class= 'btn btn-warning btn-sm btn-edit data-sid="+x[i].id+">View</button> </td></tr>";
             }
             $("#tbody").html(output);
@@ -71,14 +74,14 @@ $.ajax({
     method: "POST",
     data: JSON.stringify(mydata),
     success: function(data){
-        console.log(data);
+        //console.log(data);
         msg = "<div class='alert alert-dark mt-3'>" + data + "</div>";
         $("#msg").html(msg);
         document.getElementById('myform').reset();
         showdata();
     },
    
-});
+  });
 });
 
 

@@ -1,6 +1,8 @@
 <?php
 //This script will handle login
 session_start();
+require('library/php-excel-reader/excel_reader2.php');
+require('library/SpreadsheetReader.php');
 require_once "config.php";
 ?>
 
@@ -54,269 +56,113 @@ require_once "config.php";
     <h3>Add Project:</h3>
     <hr>
     <h5>Fill either form or add excel file </h5>
-    <form>
+    <form method="POST" action="excelUpload.php" enctype="multipart/form-data">
       <div class="form-group">
         <label for="Fileservice1">Excel file</label>
         <input type="file" class="form-control-file" id="exampleFormControlFile1">
       </div>
+      <div class="form-group">
+			<button type="submit" name="Submit" class="btn btn-success">Upload</button>
+		  </div>
+      
+		
     </form>
     <h5>Or</h5>
     <form>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="sonumber">SO Number</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <input type="text" class="form-control" id="sonumber">
         </div>
         <div class="form-group col-md-4">
-          <label for="customername">Customer name</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="dateservice">Date</label>
+          <input type="date" class="form-control" id="dateservice">
         </div>
         <div class="form-group col-md-4">
-          <label for="machinesrno">Machine Sr. no.</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="installationcomplete">Installation Complete</label>
+          <input type="text" class="form-control" id="installationcomplete">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="serialnumber">Serial Number</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <label for="machinedetails">Machine details</label>
+          <input type="text" class="form-control" id="machinedetails">
         </div>
         <div class="form-group col-md-4">
-          <label for="location">location</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="serialnumber">Serial Number</label>
+          <input type="text" class="form-control" id="serialnumber">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="customername">Customer Name</label>
+          <input type="text" class="form-control" id="customername">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="location">Location</label>
+          <input type="text" class="form-control" id="location">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="region">Region</label>
+          <input type="text" class="form-control" id="region">
         </div>
         <div class="form-group col-md-4">
           <label for="ponumber">PO Number</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="ponumber">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="machinetype">Machine type</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <label for="ressubassembly">Res Subassembly</label>
+          <input type="text" class="form-control" id="ressubassembly">
         </div>
         <div class="form-group col-md-4">
-          <label for="macid">MAC ID</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="resassembly">Res Assembly</label>
+          <input type="text" class="form-control" id="resassembly">
         </div>
         <div class="form-group col-md-4">
-          <label for="controller">Controller</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="process">Process</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="motherboard">Mother Board</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="harddisk">Hard disk</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="resqa">Res QA</label>
+          <input type="resqa" class="form-control" id="resqa">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="ram">RAM</label>
-          <input type="text" class="form-control" id="inputEmail4">
+          <label for="resdispatch">Res Dispatch</label>
+          <input type="text" class="form-control" id="resdispatch">
         </div>
         <div class="form-group col-md-4">
-          <label for="sdioversion">SDIO version</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="software">Software</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="firmware">Firmware</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="language">Language</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="operatingsystem">Operating system</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="regulatory">Regulatory</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="serversoftwareversion">Server Software Version</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="database">Database</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="numberportal">Number Portal</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="camera1">Camera 1</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="camera2">Camera 2</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="printerconfiguration">Printer Configuration</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="scannerconfiguration">Scanner Configuration</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="nilicense">NI License</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="microsoftloicense">Microsoft License</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="oslicense">O.S license</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="deptsubassembly">Dept Sub Assembly</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="startdatesubassembly">Start Date Subassembly</label>
-          <input type="date" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="enddatesubassembly">End Date Subassembly</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="tatsubassembly">TAT Sub Assembly</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="responsiblesubassembly">Responsible Subassembly</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="deptquality">Dept quality</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="startdatequality">Start Date Quality</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="responsibleassembly">Responsible Assembly</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="invoicedate">Invoice Date</label>
-          <input type="date" class="form-control" id="inputPassword4">
+          <label for="invoicedate">Invoice Date </label>
+          <input type="date" class="form-control" id="invoicedate">
         </div>
         <div class="form-group col-md-4">
           <label for="invoicenumber">Invoice Number</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="invoicenumber">
         </div>
       </div>
       <div class="form-row">
-        <form>
-          <div class="form-group">
-            <label for="dispatchfile">Dispatch file</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-          </div>
-        </form>
+        <div class="form-group col-md-4">
+          <label for="dispatchfile">Dispatch file</label>
+          <input type="file" class="form-control" id="dispatchfile">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="remarks">Remarks</label>
+          <input type="text" class="form-control" id="remarks">
+        </div>
         <div class="form-group col-md-4">
           <label for="incoterms">Incoterms</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <input type="text" class="form-control" id="incoterms">
         </div>
-        <div class="form-group col-md-2">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
           <label for="sodate">SO Date</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-2">
-          <label for="podate">PO Date</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="enddatequality">End Date Quality</label>
-          <input type="date" class="form-control" id="inputEmail4">
+          <input type="date" class="form-control" id="sodate">
         </div>
         <div class="form-group col-md-4">
-          <label for="deptquality">Dept quality</label>
-          <input type="text" class="form-control" id="inputPassword4">
+          <label for="podate">PO date</label>
+          <input type="date" class="form-control" id="podate">
         </div>
-        <div class="form-group col-md-4">
-          <label for="tatquality">TAT Quality</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="responsiblequality">Responsible Quality</label>
-          <input type="text" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="deptdispatch">Dept Dispatch</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="startdatedispatch">Start Date Dispatch</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="enddatedispatch">End Date Dispatch</label>
-          <input type="date" class="form-control" id="inputEmail4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="tatdispatch">TAT Dispatch</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="responsibledispatch">Responsible Dispatch</label>
-          <input type="text" class="form-control" id="inputPassword4">
-        </div>
-      </div>
-      <div class="form-group col-md-4">
-        <label for="remarksservice">Remarks</label>
-        <input type="text" class="form-control" id="inputPassword4">
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
+        
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
 
