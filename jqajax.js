@@ -14,9 +14,23 @@ function showdata(){
                 x="";
             }
             for(i=0;i<x.length;i++) {
-                output += "<tr><td>"+ x[i].id + "</td><td>" +x[i].crfid + "</td><td>" +x[i].fsid + "</td><td>" +x[i].customername + "</td><td>" +x[i].firmware + "</td><td>" +x[i].nonnavstarsoftware + "</td><td>" +x[i].serversoftware + "</td><td>" +x[i].projectstatus +"</td><td> <button class= 'btn btn-warning btn-sm btn-edit data-sid="+x[i].id+">View</button> </td></tr>";
+                output += "<tr><td>"+ x[i].id + "</td><td>" +x[i].crfid + "</td><td>" +x[i].fsid + "</td><td>" +x[i].customername + "</td><td>" +x[i].firmware + "</td><td>" +x[i].nonnavstarsoftware + "</td><td>" +x[i].serversoftware + "</td><td>" +x[i].projectstatus +"</td><td> <button class= 'btn btn-warning btn-sm btn-edit data-sid="+x[i].id+"'>View</button> </td></tr>";
+               // output += "<tr><td>"+ x[i].id + "</td><td>" +x[i].crfid + "</td><td>" +x[i].fsid + "</td><td>" +x[i].customername + "</td><td>" +x[i].firmware + "</td><td>" +x[i].nonnavstarsoftware + "</td><td>" +x[i].serversoftware + "</td><td>" +x[i].projectstatus +"</td><td> <button class= 'btn btn-warning btn-sm btn-edit data-sid="+x[i].id+">View</button> </td></tr>";
             }
+            console.log(output);
             $("#tbody").html(output);
+            $('#tableid').DataTable({
+                dom: 'Bfrtip',
+                buttons: [ {
+                    extend: 'excelHtml5',
+                    customize: function ( xlsx ){
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+         
+                        // jQuery selector to add a border
+                        $('row c[r*="10"]', sheet).attr( 's', '25' );
+                    }
+                } ]
+              });
         }, 
     });
 }

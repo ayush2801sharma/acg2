@@ -370,18 +370,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <!-- table functions-->
   <script>
     $(document).ready(function () {
-      $('#tableid').DataTable({
-        dom: 'Bfrtip',
-        buttons: [ {
-            extend: 'excelHtml5',
-            customize: function ( xlsx ){
-                var sheet = xlsx.xl.worksheets['sheet1.xml'];
- 
-                // jQuery selector to add a border
-                $('row c[r*="10"]', sheet).attr( 's', '25' );
-            }
-        } ]
-      });
+   
 
     });
   </script>
