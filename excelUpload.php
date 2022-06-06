@@ -9,7 +9,11 @@ require('config.php');
 if(isset($_POST['Submit'])){
 
 
+<<<<<<< HEAD
   $mimes = ['text/xlsx','application/vnd.ms-excel','text/xls','application/vnd.oasis.opendocument.spreadsheet'];
+=======
+  $mimes = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.oasis.opendocument.spreadsheet'];
+>>>>>>> 00040bb5b7345c66712f838b52b531d0beec81cb
   if(in_array($_FILES["file"]["type"],$mimes)){
 
 

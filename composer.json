@@ -1,0 +1,13 @@
+{
+    "require": {
+        "ext-gd": "*"
+    },
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.23"
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.2"
+        }
+    }
+}

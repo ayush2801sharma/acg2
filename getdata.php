@@ -1,7 +1,7 @@
 
 <?php 
 // MySQL database connection code
-$connection = mysqli_connect("127.0.0.1","root","tnt123","qaprojects") or die("Error " . mysqli_error($connection));
+$connection = mysqli_connect("127.0.0.1","root","","qaprojects") or die("Error " . mysqli_error($connection));
 //Fetch sports data
 $sql = "SELECT projectstatus, count(projectstatus) as ayush FROM `qaprojects` group by projectstatus;";
 $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
